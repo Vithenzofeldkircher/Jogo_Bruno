@@ -10,12 +10,21 @@ public class Scenes : MonoBehaviour
     }
     public void Start_Scene()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("PortasScene");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Melissa_Scene()
     {
-        
+        SceneManager.LoadScene("Melissa");
+    }
+
+    public void Matheus_Scene()
+    { 
+    
+        SceneManager.LoadScene("Matheus");
+    }
+    public void Vithenzo_Scene()
+    {
+        SceneManager.LoadScene("Vithenzo");
     }
 }
