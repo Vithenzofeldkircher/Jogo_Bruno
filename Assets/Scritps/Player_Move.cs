@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player_Move : MonoBehaviour
+public class Player_Space_Shooter_Move : MonoBehaviour
 {
     [Header("Configuração do Player")]
     public float _Speed_Player = 2f;
