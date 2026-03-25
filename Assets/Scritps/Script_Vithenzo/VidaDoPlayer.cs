@@ -51,11 +51,17 @@ public class VidaDoPlayer : MonoBehaviour
 
     public void DanoAoPlayer(int DanoParaReceber)
     {
+        VidaatualDoPlayer -= DanoParaReceber;
+
+        BarradeVidaDoplayer.value = VidaatualDoPlayer;
+
+        Debug.Log("Vida do Player: " + VidaatualDoPlayer);
 
         if (VidaatualDoPlayer <= 0)
         {
             if (telaDerrota != null)
                 telaDerrota.SetActive(true);
+
             Time.timeScale = 0f;
         }
     }

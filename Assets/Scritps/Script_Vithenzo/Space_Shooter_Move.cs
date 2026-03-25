@@ -3,48 +3,22 @@ using UnityEngine;
 public class Space_Shooter_Move : MonoBehaviour
 {
     public GameObject laserDojogador;
-
     public Transform LocalDoDisparo;
 
     public float velocidadeDaNave;
 
     private Vector2 TeclasApertadas;
-
-    public Rigidbody2D body;
-
-    public Transform LocalDoDisparoDaEsquerda;
-
-    public Transform LocalDODisparoDaDireita;
-
-    public float TempoMaximoDosLasersDuplos;
-
-    public float TempoAtualDosLasersDuplos;
-
-    public bool temLaserDuplo;
+    private Rigidbody2D body;
 
     void Start()
     {
-        temLaserDuplo = false;
-
-        TempoAtualDosLasersDuplos = TempoMaximoDosLasersDuplos;
         body = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        AtirarlazerDoPlayer();
-
         MovimentarJogador();
-
-        if (temLaserDuplo == true)
-        {
-            TempoAtualDosLasersDuplos -= Time.deltaTime;
-
-            if (TempoAtualDosLasersDuplos <= 0)
-            {
-                DesativarLaserDuplo();
-            }
-        }
+        AtirarLaserDoPlayer();
     }
 
     public void MovimentarJogador()
@@ -53,26 +27,17 @@ public class Space_Shooter_Move : MonoBehaviour
         body.linearVelocity = TeclasApertadas.normalized * velocidadeDaNave;
     }
 
-    public void AtirarlazerDoPlayer()
+    public void AtirarLaserDoPlayer()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            if (temLaserDuplo == false)
+            if (laserDojogador == null || LocalDoDisparo == null)
             {
-                Instantiate(laserDojogador, LocalDoDisparo.position, LocalDoDisparo.rotation);
+                Debug.LogError("Laser ou ponto de disparo não estão atribuídos!");
+                return;
             }
-            else
-            {
-                Instantiate(laserDojogador, LocalDoDisparoDaEsquerda.position, LocalDoDisparo.rotation);
-                Instantiate(laserDojogador, LocalDODisparoDaDireita.position, LocalDoDisparo.rotation);
-            }
+
+            Instantiate(laserDojogador, LocalDoDisparo.position, LocalDoDisparo.rotation);
         }
     }
-
-    private void DesativarLaserDuplo()
-    {
-        temLaserDuplo = false;
-        TempoAtualDosLasersDuplos = TempoMaximoDosLasersDuplos;
-    }
 }
-
