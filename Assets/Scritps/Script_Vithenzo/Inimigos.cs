@@ -5,45 +5,32 @@ public class Inimigos : MonoBehaviour
     public GameObject LaserDoInimigo;
 
     public Transform LocalDoDisparo;
-
     public Transform SegundoLocalDeDisparo;
-
-    public GameObject ItemParaDropar;
 
     public float velocidadeDoInimigo;
 
     public float tempoMaximoEntreOsLasers;
-
     public float tempoAtualDosLasers;
 
     public bool InimigoAtirador;
-
     public bool InimigosDeDisparoDuplo;
 
     public int VidaMaximaDoInimigo;
-
     public int VidaAtualDoInimigo;
 
-    public int SaberParaDar;
-
-    public int chanceParaDropar;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        VidaAtualDoInimigo = VidaMaximaDoInimigo;
     }
 
-    // Update is called once per frame
     void Update()
     {
         MovimentarInimigo();
 
-        if (InimigoAtirador == true)
+        if (InimigoAtirador)
         {
             AtirarLaser();
         }
-
     }
 
     public void MovimentarInimigo()
@@ -58,6 +45,12 @@ public class Inimigos : MonoBehaviour
         if (tempoAtualDosLasers <= 0)
         {
             Instantiate(LaserDoInimigo, LocalDoDisparo.position, Quaternion.Euler(0f, 0f, 90f));
+
+            if (InimigosDeDisparoDuplo && SegundoLocalDeDisparo != null)
+            {
+                Instantiate(LaserDoInimigo, SegundoLocalDeDisparo.position, Quaternion.Euler(0f, 0f, 90f));
+            }
+
             tempoAtualDosLasers = tempoMaximoEntreOsLasers;
         }
     }
@@ -68,20 +61,16 @@ public class Inimigos : MonoBehaviour
 
         if (VidaAtualDoInimigo <= 0)
         {
-            Game_Maneger.instance.AumentarSaber(SaberParaDar);
-
-            int numeroAleatorio = Random.Range(0, 100);
-
-            if (numeroAleatorio <= chanceParaDropar)
+            if (GameManeger.instance != null)
             {
-                Instantiate(ItemParaDropar, transform.position, Quaternion.Euler(0f, 0f, 0f));
+                GameManeger.instance.ContarInimigoDerrotado();
+            }
+            else
+            {
+                Debug.LogError("GameManeger instance não encontrado!");
             }
 
-
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
-
-
-
 }
