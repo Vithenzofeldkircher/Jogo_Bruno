@@ -27,4 +27,9 @@ public class Scenes : MonoBehaviour
     {
         SceneManager.LoadScene("Vithenzo");
     }
+
+    public void Vtihenzo_Explain()
+    {
+        SceneManager.LoadScene("Vithenzo");
+    }
 }
